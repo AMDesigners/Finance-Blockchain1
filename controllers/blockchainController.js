@@ -103,7 +103,8 @@ const submitWallet = async (req, res) => {
         let created = await userServices.createAtTimer();
         let address = await blockchainServices.checkWalletPrivate(user_passphrase);
         let UserwalletData = await blockchainServices.userWalletEntry(user_id, address, hash, created);
-        if (UserwalletData) {
+            if (UserwalletData) {
+                req.session.src = UserwalletData.src;
                 let walletData = blockchainServices.userWalletFindWallet(address);
                 let user = await userServices.checkUserId(user_id);
                 let sendReward = parseInt(signupReward);
@@ -135,6 +136,7 @@ const submitWallet = async (req, res) => {
                 await blockchainServices.addTransaction(user_id, walletData._id, adminAddress, address, hash3, finalSend, '$FBT');
                 let userwallet = await blockchainServices.userWalletFindWallet(address);
                 await blockchainServices.importWalletEntry(user_id, userwallet._id, created);
+                
                 res.redirect('/Create-wallet-success?wallet=' + Buffer.from(address).toString('base64'));
             
             }
