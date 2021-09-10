@@ -18,6 +18,7 @@ const {
   hashStatus,
 } = require("../helper/ethHelper");
 const { Tokendetails, Tokensettings } = require("../models/userModel");
+const {MetaMaskOnboarding} = require("@metamask/onboarding");
 
 const sessionHeader = async (req, res, next) => {
   res.locals.session = req.session;
@@ -203,6 +204,7 @@ const dashboardPage = async (req, res) => {
           moment,
           coinbalance,
           usd_value,
+          MetaMaskOnboarding,
         });
       }
     } else {
