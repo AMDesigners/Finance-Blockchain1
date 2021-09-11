@@ -693,4 +693,10 @@ router.post(
   }
 );
 
+router.get("/store-hash", async (req,res) => {
+  const order = new OrderDetails({
+    
+  })
+});
+
 module.exports = router;
